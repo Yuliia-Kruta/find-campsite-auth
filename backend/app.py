@@ -10,6 +10,9 @@ def connect_to_redis_kv_database() :
     connection = redis.Redis(  host='redis-17186.c74.us-east-1-4.ec2.redns.redis-cloud.com',  port=17186,  password='bi8Yx2xRghnei6wft8juL3ae3TzK1wJW', decode_responses=True)
     return connection
 
+connection = connect_to_redis_kv_database()
+# print (connection.ping())
+
 def load_initial_data(connection, file_path):
     """Loads initial data to the database from csv file"""
     try:
@@ -109,9 +112,10 @@ def forgot_password():
 def home():
     return "Hello, Flask!"
 
-#if __name__ == '__main__':
-    #app.run(debug=True)
 
-connection = connect_to_redis_kv_database()
-print (connection.ping())
-# setup_database(connection, 'initial_data.csv')
+
+if __name__ == '__main__':
+    if not connection.exists('user:jennifer39@yahoo.com'):
+        setup_database(connection, 'initial_data.csv')
+
+    app.run(debug=True)
