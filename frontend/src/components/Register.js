@@ -35,7 +35,8 @@ const Register = () => {
             securityQuestionAnswer
           });
           setMessage(response.data.message);
-          navigate('/', { state: { receivedMessage: response.data.message} });
+          sessionStorage.setItem('receivedMessage', response.data.message);
+          navigate('/')
         } catch (err) {
           setError(err.response?.data?.error || 'Registration failed');
         }

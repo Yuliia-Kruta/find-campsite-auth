@@ -1,6 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
@@ -10,9 +10,18 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+    const [receivedMessage, setReceivedMessage] = useState('');
 
-    const location = useLocation();  
-    const receivedMessage = location.state.receivedMessage || '';
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const received_message = sessionStorage.getItem('receivedMessage');
+        
+        if (received_message) {
+            setReceivedMessage(received_message);
+            sessionStorage.removeItem('receivedMessage');
+        }
+    }, []); 
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,6 +31,8 @@ const Login = () => {
         try {
             const response = await axios.post('http://127.0.0.1:5000/login', { email, password });
             setMessage(response.data.message);
+            navigate('/home')
+
         } catch (err) {
             setError(err.response?.data?.error || 'Login failed');
         }

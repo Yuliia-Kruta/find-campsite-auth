@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
 import { MdEmail } from "react-icons/md";
@@ -13,6 +13,8 @@ const ResetPassword = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [step, setStep] = useState('first'); // 'first' or 'reset'
+
+    const navigate = useNavigate();
 
     const handleEmailSubmit = async (e) => {
         
@@ -48,6 +50,8 @@ const ResetPassword = () => {
             newPassword,
           });
           setMessage(response.data.message);
+          sessionStorage.setItem('receivedMessage', response.data.message);
+          navigate('/')
         } catch (err) {
           setError(err.response?.data?.error || 'Password reset failed');
         }
