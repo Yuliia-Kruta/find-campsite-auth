@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import redis
 import csv
 import bcrypt
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS
 
 def connect_to_redis_kv_database() :
     """Connects to an Redis Cache database."""
