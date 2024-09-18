@@ -13,7 +13,6 @@ const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [useDefaultQuestion, setUseDefaultQuestion] = useState(true);
     const [securityQuestion, setSecurityQuestion] = useState("What was your first dog's name?");
-    const [customSecurityQuestion, setCustomSecurityQuestion] = useState('');
     const [securityQuestionAnswer, setSecurityQuestionAnswer] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
@@ -44,7 +43,7 @@ const Register = () => {
 
     const handleQuestionChange = (e) => {
         setUseDefaultQuestion(e.target.value === 'default');
-        setSecurityQuestion(useDefaultQuestion ? "What is your first dog's name?" : customSecurityQuestion);
+        setSecurityQuestion(e.target.value === 'default' ? "What is your first dog's name?" : "");
     };
 
 
@@ -95,8 +94,8 @@ const Register = () => {
                         <input
                             type="text"
                             placeholder="Enter security question"
-                            value={customSecurityQuestion}
-                            onChange={(e) => setCustomSecurityQuestion(e.target.value)}
+                            value={securityQuestion}
+                            onChange={(e) => setSecurityQuestion(e.target.value)}
                             required={!useDefaultQuestion}
                         />
                     </div>
