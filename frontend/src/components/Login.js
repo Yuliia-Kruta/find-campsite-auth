@@ -38,7 +38,7 @@ const Login = () => {
                     <FaLock className="icon"/>
                 </div>
                 <div className="remember-forgot">
-                    <label htmlFor=""><input type="checkbox" />Remember me</label>
+                    <label><input type="checkbox" />Remember me</label>
                     <Link to="/reset-password">Forgot password?</Link>
                 </div>
                 <button type="submit">Login</button>

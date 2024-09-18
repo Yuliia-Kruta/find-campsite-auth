@@ -23,6 +23,7 @@ body {
   color: white;
   border-radius: 10px;
   padding: 30px 40px;
+  margin: 10px 0 10px 0;
 }
 
 .wrapper h1{
@@ -103,18 +104,39 @@ body {
   box-shadow: 0 0 12px rgba(0, 0, 0, .3);
 }
 
-.wrapper .register-link{
+.wrapper .register-link, .wrapper .login-link{
   font-size: 14.5px;
   text-align: center;
   margin: 20px 0 15px;
 }
 
-.register-link p a{
+.register-link p a, .login-link p a{
   color: white;
   text-decoration: none;
   font-weight: 600;
 }
 
-.register-link p a:hover{
+.register-link p a:hover, .login-link p a:hover{
   text-decoration: underline;
+}
+
+.security-question-text-wrapper{
+  text-align: left;
+}
+.security-question-choice{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.security-question-choice label input{
+  accent-color: white;
+  margin-right: 4px;
+}
+.security-question-text-wrapper p{
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.input-box-sec-q-answer{
+  margin: 15px 0 30px 0 !important;
 }
