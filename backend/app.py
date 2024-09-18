@@ -76,7 +76,7 @@ def login():
     email = data.get('email').strip()
     password = data.get('password').strip()
 
-    user = connection.hgetall(email)
+    user = connection.hgetall('user:'+email)
     if not user:
         return jsonify({'error': 'User does not exist'}), 404
 
@@ -94,7 +94,7 @@ def forgot_password():
     security_question_answer = data.get('securityQuestionAnswer').strip()
     new_password = data.get('newPassword').strip()
 
-    user = connection.hgetall(email)
+    user = connection.hgetall('user:'+email)
     if not user:
         return jsonify({'error': 'User does not exist'}), 404
 
