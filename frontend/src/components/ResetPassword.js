@@ -100,6 +100,7 @@ const ResetPassword = () => {
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 required
                             />
+                            <FaLock className="icon"/>
                         </div>
                         <button type="submit">Reset password</button>
                         <div className="login-link">
