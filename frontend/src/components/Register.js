@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
 import { MdEmail } from "react-icons/md";
@@ -18,6 +18,8 @@ const Register = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
+    const navigate = useNavigate();
+
     const handleRegister = async (e) => {
 
         e.preventDefault();
@@ -33,6 +35,7 @@ const Register = () => {
             securityQuestionAnswer
           });
           setMessage(response.data.message);
+          navigate('/', { state: { receivedMessage: response.data.message} });
         } catch (err) {
           setError(err.response?.data?.error || 'Registration failed');
         }
@@ -83,7 +86,7 @@ const Register = () => {
                         </label>
                     </div>
                     {useDefaultQuestion && (
-                        <p>What was your first dog's name?</p>
+                        <p>{securityQuestion}</p>
                     )}
                 </div>
                 {!useDefaultQuestion && (

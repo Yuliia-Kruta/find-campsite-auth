@@ -69,7 +69,7 @@ def create_account():
         'securityQuestionAnswer' : security_question_answer
     })
     
-    return jsonify({'message': 'Account created successfully'}), 201
+    return jsonify({'message': 'User registered successfully! Please log in.'}), 201
 
 
 @app.post('/login')
@@ -89,6 +89,17 @@ def login():
     return jsonify({'message': 'Login successful'}), 200
 
 
+@app.post('/verify_email')
+def verify_email():
+    data = request.json
+    email = data.get('email').strip()
+    user = connection.hgetall('user:'+email)
+    if not user:
+        return jsonify({'error': 'User does not exist'}), 404
+    security_question = connection.hget('user:'+email, 'securityQuestion')
+    return jsonify({'email':email, 'securityQuestion': security_question}), 200
+
+
 @app.post('/forgot_password')
 def forgot_password():
     data = request.json
@@ -99,15 +110,16 @@ def forgot_password():
     user = connection.hgetall('user:'+email)
     if not user:
         return jsonify({'error': 'User does not exist'}), 404
-
+    
+  
     stored_security_question_answer = user.get('securityQuestionAnswer')
     if security_question_answer != stored_security_question_answer:
         return jsonify({'error': 'Incorrect security question answer'}), 400
 
     hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
     connection.hset('user:'+email, 'password', hashed_password.decode('utf-8'))
-
     return jsonify({'message': 'Password updated successfully'}), 200
+    
 
 
 @app.route('/')

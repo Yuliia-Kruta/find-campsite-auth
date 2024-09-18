@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
 import { MdEmail } from "react-icons/md";
@@ -10,6 +10,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+
+    const location = useLocation();  
+    const receivedMessage = location.state.receivedMessage || '';
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -48,6 +51,7 @@ const Login = () => {
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {message && <p style={{ color: 'green' }}>{message}</p>}
+            {receivedMessage && <p style={{ color: 'green' }}>{receivedMessage}</p>}
         </div>
      );
 }
