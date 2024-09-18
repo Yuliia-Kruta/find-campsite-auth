@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
+import { MdEmail } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
 
 const Login = () => {
     
@@ -26,12 +28,14 @@ const Login = () => {
     return ( 
         <div className="wrapper">
             <form onSubmit={handleLogin}>
-                <h1>Login</h1>
+                <h1>Sign in</h1>
                 <div className="input-box">
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <MdEmail className="icon"/>
                 </div>
                 <div className="input-box">
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <FaLock className="icon"/>
                 </div>
                 <div className="remember-forgot">
                     <label htmlFor=""><input type="checkbox" />Remember me</label>
