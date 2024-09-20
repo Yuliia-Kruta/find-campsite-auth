@@ -2,6 +2,23 @@ import unittest
 import json
 from app import app, connect_to_redis_kv_database
 
+"""
+Existing user from initial database: "user:jennifer39@yahoo.com"
+email: "jennifer39@yahoo.com"
+password: "rS;k|9Y1"
+firstName: "jennifer"
+securityQuestion: "What was your first dog's name?"
+securityAnswer: "Zeus"
+
+
+Existing user from initial database: "user:Margaret37@outlook.com"
+email: "Margaret37@outlook.com"
+password: "(6NI9Mlx"
+firstName: "Margaret"
+securityQuestion: "What was your first dog's name?"
+securityAnswer: "Rosie"
+"""
+
 class TestCampsiteApp(unittest.TestCase):
     
     @classmethod
@@ -43,8 +60,8 @@ class TestCampsiteApp(unittest.TestCase):
     def test_login_success(self):
         """Tests login with correct credentials"""
         data = {
-            'email': 'test_login_success@gmail.com',
-            'password': 'test3'
+            'email': 'jennifer39@yahoo.com',
+            'password': 'rS;k|9Y1'
         }
         response = self.client.post('/login', json=data)
         self.assertEqual(response.status_code, 200)
@@ -65,8 +82,8 @@ class TestCampsiteApp(unittest.TestCase):
     def test_forgot_password_success(self):
         """Tests forgot password with correct security question answer"""
         data = {
-            'email': 'jennifer39@yahoo.com',
-            'securityQuestionAnswer': 'Zeus',  
+            'email': 'Margaret37@outlook.com',
+            'securityQuestionAnswer': 'Rosie',  
             'newPassword': 'newpassword123'
         }
         response = self.client.post('/forgot_password', json=data)
@@ -77,7 +94,7 @@ class TestCampsiteApp(unittest.TestCase):
     def test_forgot_password_invalid_answer(self):
         """Tests forgot password with incorrect security question answer"""
         data = {
-            'email': 'jennifer39@yahoo.com',
+            'email': 'Margaret37@outlook.com',
             'securityQuestionAnswer': 'WrongAnswer',
             'newPassword': 'newpassword123'
         }

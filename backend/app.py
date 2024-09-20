@@ -149,7 +149,7 @@ def home():
 """Root url to """
 @app.route('/')
 def flask():
-    return 'Flask dev server is up!'
+    return 'Flask server is up!'
 
 if __name__ == '__main__':
     if not connection.exists('user:jennifer39@yahoo.com'):
