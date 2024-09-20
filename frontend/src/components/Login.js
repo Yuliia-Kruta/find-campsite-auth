@@ -16,6 +16,13 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
+        const storedMessage = sessionStorage.getItem('receivedMessage');
+        if (storedMessage) {
+            setReceivedMessage(storedMessage);
+            sessionStorage.removeItem('receivedMessage'); 
+        }
+
         const savedEmail = localStorage.getItem('rememberMe') === 'true' ? localStorage.getItem('email') : '';
         if (savedEmail) {
             setEmail(savedEmail);
