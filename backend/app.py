@@ -6,7 +6,7 @@ import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app) 
 
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'
 jwt = JWTManager(app)
@@ -91,7 +91,6 @@ def login():
         return jsonify({'error': 'Incorrect credentials'}), 401
 
     access_token = create_access_token(identity=email)
-    #return jsonify({'message': 'Login successful', 'password':user.get('password')}), 200
     return jsonify({'message': 'Login successful', 'accessToken' : access_token}), 200
 
 

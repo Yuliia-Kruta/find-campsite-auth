@@ -4,7 +4,6 @@ import Login from './components/Login'
 import Register from './components/Register'
 import ResetPassword from './components/ResetPassword'
 import Home from './components/Home';
-import PrivateRoute from './components/PrivateRoute';
 
 function App() {
 

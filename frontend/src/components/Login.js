@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
@@ -14,15 +14,6 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(false);
 
     const navigate = useNavigate();
-
-    /*useLayoutEffect(() => {
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        console.log("Token: "+token)
-        if (token) {
-            navigate('/home');
-        }
-        
-    }, []);*/
 
     const handleLogin = async (e) => {
         e.preventDefault();
