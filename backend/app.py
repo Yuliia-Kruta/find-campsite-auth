@@ -149,6 +149,6 @@ def home():
 
 if __name__ == '__main__':
     if not connection.exists('user:jennifer39@yahoo.com'):
-        setup_database(connection, 'initial_data.csv')
+        setup_database(connection, 'ICT320 - Task 2 - Initial Database.csv')
 
     app.run(debug=True)
