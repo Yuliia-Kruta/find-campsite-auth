@@ -6,14 +6,16 @@ import csv
 import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager
 
+"""Initilised Flask app and enables CORS"""
 app = Flask(__name__)
 CORS(app) 
 
+"""JWT setup"""
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'
 jwt = JWTManager(app)
 
 def connect_to_redis_kv_database() :
-    """Connects to an Redis Cache database."""
+    """Connects to the Redis Cache database"""
     connection = redis.Redis(  host='redis-17186.c74.us-east-1-4.ec2.redns.redis-cloud.com',  port=17186,  password='bi8Yx2xRghnei6wft8juL3ae3TzK1wJW', decode_responses=True)
     return connection
 
@@ -54,8 +56,10 @@ def setup_database(connection, initialData):
     load_initial_data(connection, initialData)
 
 
+"""User's registration endpoint"""
 @app.post('/register')
 def create_account():
+    """Registers a new user by saving the credentials to the Redis"""
     data = request.json
     email = data.get('email').strip()
     password = data.get('password').strip()
@@ -66,6 +70,7 @@ def create_account():
     if connection.exists('user:'+ email):
         return jsonify({"error": "User already exists"}), 409
 
+    # Encrypts the password before saving
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     connection.hset('user:'+ email, mapping={
         'password' : hashed_password.decode('utf-8'),
@@ -76,9 +81,10 @@ def create_account():
     
     return jsonify({'message': 'User registered successfully! Please log in.'}), 201
 
-
+"""User's login endpoint"""
 @app.post('/login')
 def login():
+    """Logs in a user by validating their credentials and returning JWT."""
     data = request.json
     email = data.get('email').strip()
     password = data.get('password').strip()
@@ -97,9 +103,10 @@ def login():
     return jsonify({'message': 'Login successful', 'accessToken' : access_token}), 200
 
 
-
+"""User's email verification endpoint"""
 @app.post('/verify_email')
 def verify_email():
+    """Verifies the email and retrieves the security question"""
     data = request.json
     email = data.get('email').strip()
     user = connection.hgetall('user:'+email)
@@ -109,8 +116,10 @@ def verify_email():
     return jsonify({'email':email, 'securityQuestion': security_question}), 200
 
 
+"""User's forgot password endpoint"""
 @app.post('/forgot_password')
 def forgot_password():
+    """Allows users to reset their password after verifying the security question"""
     data = request.json
     email = data.get('email').strip()
     security_question_answer = data.get('securityQuestionAnswer').strip()
@@ -130,12 +139,12 @@ def forgot_password():
     return jsonify({'message': 'Password updated successfully'}), 200
     
 
-
+"""User's home endpoint, requires a valid JWT to access this route"""
 @app.get('/home')
 @jwt_required()
 def home():
+    """Displays the home page for authenticated users"""
     return jsonify({'message': 'User was successfully logged in'}), 200
-
 
 
 if __name__ == '__main__':
