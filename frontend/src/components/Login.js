@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
@@ -15,6 +15,14 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('rememberMe') === 'true' ? localStorage.getItem('email') : '';
+        if (savedEmail) {
+            setEmail(savedEmail);
+            setRememberMe(true);
+        }
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
@@ -27,8 +35,12 @@ const Login = () => {
           
             if (rememberMe) {
                 localStorage.setItem('token', access_token);
+                localStorage.setItem('email', email);
+                localStorage.setItem('rememberMe', 'true');
             } else {
                 sessionStorage.setItem('token', access_token);
+                localStorage.removeItem('email');
+                localStorage.removeItem('rememberMe');
             }
 
             navigate('/home')

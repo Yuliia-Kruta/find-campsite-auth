@@ -34,12 +34,22 @@ const Home = () => {
 
     }, [navigate]);
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        navigate('/');  
+    };
 
     if (error) {
         return <div>{error}</div>;
     }
 
-    return <div className="home">{message}</div>;
+    return (
+        <div className="home">
+            <h3>{message}</h3>
+            <button className="home-button" onClick={handleLogout}>Logout</button>
+        </div>
+    )
 }
  
 export default Home;

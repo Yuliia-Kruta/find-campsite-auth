@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import redis
@@ -81,6 +82,7 @@ def login():
     data = request.json
     email = data.get('email').strip()
     password = data.get('password').strip()
+    remember_me = data.get('rememberMe', False)
 
     user = connection.hgetall('user:'+email)
     if not user:
@@ -90,6 +92,7 @@ def login():
     if not bcrypt.checkpw(password.encode('utf-8'), stored_password):
         return jsonify({'error': 'Incorrect credentials'}), 401
 
+    expires = timedelta(days=7) if remember_me else timedelta(hours=1)
     access_token = create_access_token(identity=email)
     return jsonify({'message': 'Login successful', 'accessToken' : access_token}), 200
 
