@@ -1,18 +1,23 @@
 import './App.css';
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
 import ResetPassword from './components/ResetPassword'
 import Home from './components/Home';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
+
+  const isAuthenticated = () => {
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
+  };
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/" element={!isAuthenticated() ? <Login /> : <Navigate to="/home" />} />
+          <Route path="/register" element={!isAuthenticated() ? <Register /> : <Navigate to="/home" />} />
+          <Route path="/reset-password" element={!isAuthenticated() ? <ResetPassword /> : <Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>

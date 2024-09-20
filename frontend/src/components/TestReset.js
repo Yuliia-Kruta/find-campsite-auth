@@ -98,3 +98,47 @@ def forgot_password():
     return jsonify({'message': 'Password updated successfully'}), 200*/
 
     {receivedMessage && <p style={{ color: 'green' }}>{receivedMessage}</p>}
+
+
+
+/////////
+
+    useEffect(() => {
+
+        const rememberedEmail = localStorage.getItem('email');
+        const rememberedPassword = localStorage.getItem('password');
+        if (rememberedEmail && rememberedPassword) {
+            setEmail(rememberedEmail);
+            setPassword(rememberedPassword);
+            setRememberMe(true); 
+        }
+
+        const received_message = sessionStorage.getItem('receivedMessage');
+        
+        if (received_message) {
+            setReceivedMessage(received_message);
+            sessionStorage.removeItem('receivedMessage');
+        }
+    }, []);
+
+
+
+      // If "Remember me" is checked, store credentials in localStorage
+            /*if (rememberMe) {
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', response.data.password);
+            } else {
+                // Remove credentials from localStorage if "Remember me" is unchecked
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+            }*/
+
+
+            //    checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}
+/*
+
+            element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              } />*/

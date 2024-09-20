@@ -3,9 +3,13 @@ from flask_cors import CORS
 import redis
 import csv
 import bcrypt
+from flask_jwt_extended import create_access_token, jwt_required, JWTManager
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
+
+app.config['JWT_SECRET_KEY'] = 'your_secret_key'
+jwt = JWTManager(app)
 
 def connect_to_redis_kv_database() :
     """Connects to an Redis Cache database."""
@@ -86,7 +90,10 @@ def login():
     if not bcrypt.checkpw(password.encode('utf-8'), stored_password):
         return jsonify({'error': 'Incorrect credentials'}), 401
 
-    return jsonify({'message': 'Login successful'}), 200
+    access_token = create_access_token(identity=email)
+    #return jsonify({'message': 'Login successful', 'password':user.get('password')}), 200
+    return jsonify({'message': 'Login successful', 'accessToken' : access_token}), 200
+
 
 
 @app.post('/verify_email')
@@ -122,9 +129,10 @@ def forgot_password():
     
 
 
-@app.route('/')
+@app.get('/home')
+@jwt_required()
 def home():
-    return "Hello, Flask!"
+    return jsonify({'message': 'User was successfully logged in'}), 200
 
 
 

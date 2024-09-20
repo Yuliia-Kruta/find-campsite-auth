@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
@@ -11,17 +11,18 @@ const Login = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [receivedMessage, setReceivedMessage] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const received_message = sessionStorage.getItem('receivedMessage');
-        
-        if (received_message) {
-            setReceivedMessage(received_message);
-            sessionStorage.removeItem('receivedMessage');
+    /*useLayoutEffect(() => {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        console.log("Token: "+token)
+        if (token) {
+            navigate('/home');
         }
-    }, []); 
+        
+    }, []);*/
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -31,6 +32,14 @@ const Login = () => {
         try {
             const response = await axios.post('http://127.0.0.1:5000/login', { email, password });
             setMessage(response.data.message);
+            const access_token = response.data.accessToken;
+          
+            if (rememberMe) {
+                localStorage.setItem('token', access_token);
+            } else {
+                sessionStorage.setItem('token', access_token);
+            }
+
             navigate('/home')
 
         } catch (err) {
@@ -52,7 +61,7 @@ const Login = () => {
                     <FaLock className="icon"/>
                 </div>
                 <div className="remember-forgot">
-                    <label><input type="checkbox" />Remember me</label>
+                    <label><input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}/>Remember me</label>
                     <Link to="/reset-password">Forgot password?</Link>
                 </div>
                 <button type="submit">Login</button>
