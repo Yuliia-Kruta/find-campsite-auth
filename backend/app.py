@@ -146,9 +146,14 @@ def home():
     """Displays the home page for authenticated users"""
     return jsonify({'message': 'User was successfully logged in'}), 200
 
+"""Root url to """
+@app.route('/')
+def flask():
+    return 'Flask dev server is up!'
 
 if __name__ == '__main__':
     if not connection.exists('user:jennifer39@yahoo.com'):
         setup_database(connection, 'ICT320 - Task 2 - Initial Database.csv')
 
     app.run(debug=True)
+    
