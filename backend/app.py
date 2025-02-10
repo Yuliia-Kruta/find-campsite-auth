@@ -1,10 +1,14 @@
 from datetime import timedelta
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import redis
 import csv
 import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager
+from dotenv import load_dotenv  
+
+load_dotenv()
 
 """Initilised Flask app and enables CORS"""
 app = Flask(__name__)
@@ -16,7 +20,9 @@ jwt = JWTManager(app)
 
 def connect_to_redis_kv_database() :
     """Connects to the Redis Cache database"""
-    connection = redis.Redis(  host='redis-17186.c74.us-east-1-4.ec2.redns.redis-cloud.com',  port=17186,  password='bi8Yx2xRghnei6wft8juL3ae3TzK1wJW', decode_responses=True)
+    connection = redis.Redis(  host=os.getenv("REDIS_HOST"),
+        port=int(os.getenv("REDIS_PORT", 6379)),  
+        password=os.getenv("REDIS_PASSWORD"), decode_responses=True)
     return connection
 
 connection = connect_to_redis_kv_database()
@@ -153,7 +159,7 @@ def flask():
 
 if __name__ == '__main__':
     if not connection.exists('user:jennifer39@yahoo.com'):
-        setup_database(connection, 'ICT320 - Task 2 - Initial Database.csv')
+        setup_database(connection, os.path.join(os.path.dirname(__file__), "Initial Database.csv"))
 
     app.run(debug=True)
     
