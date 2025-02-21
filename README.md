@@ -2,7 +2,7 @@
 <br/>
 <img align="left" src="./find-campsite-auth.gif" width="30%" height="auto"/>
 <br/><br/><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Link: <a target="new" href="update">Live Demo</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Link: <a target="new" href="https://find-campsite-auth-website.onrender.com">Live Demo</a>
 <br/><br/><br/><br/><br/>
 <br/>
 <h2>Project description</h2>
