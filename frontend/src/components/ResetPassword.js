@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import API_BASE_URL from '../config';
 
 const ResetPassword = () => {
 
@@ -23,7 +24,7 @@ const ResetPassword = () => {
         setMessage('');
     
         try {
-          const response = await axios.post('http://127.0.0.1:5000/verify_email', { email });
+          const response = await axios.post(`${API_BASE_URL}/verify_email`, { email });
           if (response.data.email) {
             setEmail(response.data.email);
             setSecurityQuestion(response.data.securityQuestion)
@@ -44,7 +45,7 @@ const ResetPassword = () => {
         setMessage('');
     
         try {
-          const response = await axios.post('http://127.0.0.1:5000/forgot_password', {
+          const response = await axios.post(`${API_BASE_URL}/forgot_password`, {
             email,
             securityQuestionAnswer,
             newPassword,

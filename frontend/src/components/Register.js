@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import API_BASE_URL from '../config';
 
 
 const Register = () => {
@@ -26,7 +27,7 @@ const Register = () => {
         setMessage('');
     
         try {
-          const response = await axios.post('http://127.0.0.1:5000/register', {
+          const response = await axios.post(`${API_BASE_URL}/register`, {
             email,
             password,
             firstName,

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config';
 
 const Home = () => {
     
@@ -17,7 +18,7 @@ const Home = () => {
             return;
         }
 
-        axios.get('http://127.0.0.1:5000/home', {
+        axios.get(`${API_BASE_URL}/home`, {
             headers: {
                 Authorization: `Bearer ${token}`  
             }

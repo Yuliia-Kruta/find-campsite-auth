@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import API_BASE_URL from '../config';
 
 const Login = () => {
     
@@ -36,7 +37,7 @@ const Login = () => {
         setMessage('');
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/login', { email, password });
+            const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
             setMessage(response.data.message);
             const access_token = response.data.accessToken;
           
