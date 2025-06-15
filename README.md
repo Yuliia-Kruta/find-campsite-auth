@@ -1,9 +1,8 @@
 <h1 align="center">Find Campsite Auth</h1>
 <br/>
-<img align="left" src="./find-campsite-auth.gif" width="30%" height="auto"/>
-<br/><br/><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Project Link: <a target="new" href="https://find-campsite-auth-website.onrender.com">Live Demo</a>
-<br/><br/><br/><br/><br/>
+<img src="./find-campsite-auth.gif" width="40%" height="auto"/>
+Project Link: <a target="new" href="https://find-campsite-auth-website.onrender.com">Live Demo</a><br/><br/>
+<b>Note:</b> There may be a delay when starting the live demo application for the first time due to the limited performance of Render's free plan. If the app remains unresponsive, please try reloading the page.
 <br/>
 <h2>Project description</h2>
 <b>Find Campsite Auth</b> is a robust authentication system designed for a campsite booking platform. It enables users to create accounts, log in, and reset passwords while ensuring data security. <br/>The backend is built with <b>Python</b> &amp; <b>Flask</b>, while the frontend is developed with <b>React</b>. Utilises <b>Redis</b> as a key-value database. 
