@@ -1,6 +1,6 @@
 <h1 align="center">Find Campsite Auth</h1>
 <br/>
-<img src="./find-campsite-auth.gif" width="40%" height="auto"/>
+<img src="./find-campsite-auth.gif" width="70%" height="auto"/>
 Project Link: <a target="new" href="https://find-campsite-auth-website.onrender.com">Live Demo</a><br/><br/>
 <b>Note:</b> There may be a delay when starting the live demo application for the first time due to the limited performance of Render's free plan. If the app remains unresponsive, please try reloading the page.
 <br/>
